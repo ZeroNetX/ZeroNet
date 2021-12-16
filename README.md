@@ -64,18 +64,18 @@ Decentralized websites using Bitcoin crypto and the BitTorrent network - https:/
 
 ### Windows
 
- - Download [ZeroNet-py3-win64.zip](https://github.com/HelloZeroNet/ZeroNet-win/archive/dist-win64/ZeroNet-py3-win64.zip) (18MB)
+ - Download [ZeroNet-py3-win64.zip](https://github.com/ZeroNetX/ZeroNet-win/archive/dist-win64/ZeroNet-py3-win64.zip) (18MB)
  - Unpack anywhere
  - Run `ZeroNet.exe`
  
 ### macOS
 
- - Download [ZeroNet-dist-mac.zip](https://github.com/HelloZeroNet/ZeroNet-dist/archive/mac/ZeroNet-dist-mac.zip) (13.2MB)
+ - Download [ZeroNet-dist-mac.zip](https://github.com/ZeroNetX/ZeroNet-dist/archive/mac/ZeroNet-dist-mac.zip) (13.2MB)
  - Unpack anywhere
  - Run `ZeroNet.app`
  
 ### Linux (x86-64bit)
- - `wget https://github.com/HelloZeroNet/ZeroNet-linux/archive/dist-linux64/ZeroNet-py3-linux64.tar.gz`
+ - `wget https://github.com/ZeroNetX/ZeroNet-linux/archive/dist-linux64/ZeroNet-py3-linux64.tar.gz`
  - `tar xvpfz ZeroNet-py3-linux64.tar.gz`
  - `cd ZeroNet-linux-dist-linux64/`
  - Start with: `./ZeroNet.sh`
