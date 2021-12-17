@@ -225,6 +225,7 @@ a { color: black }
     .notification .message { white-space: normal; }
     .notification .buttons { padding-right: 22px; padding-right: 40px; }
     .notification .button { white-space: nowrap; }
+    .notification .close { font-size: 30px; }
     .notification { margin: 0px; }
     .notifications { right: 0px; max-width: 80%; }
 }
