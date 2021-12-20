@@ -225,7 +225,12 @@ a { color: black }
     .notification .message { white-space: normal; }
     .notification .buttons { padding-right: 22px; padding-right: 40px; }
     .notification .button { white-space: nowrap; }
-    .notification .close { font-size: 30px; }
+    .notification .close:hover { color: white }
+    .notification .close:active, .notification .close:focus { color: white }
+    .notification .close {
+	   padding: 0px; display: block; width: 50px; height: 50px;
+	   text-align: center; background-color: tomato; line-height: 45px; vertical-align: bottom; font-size: 40px; color: white;
+    }
     .notification { margin: 0px; }
     .notifications { right: 0px; max-width: 80%; }
 }
