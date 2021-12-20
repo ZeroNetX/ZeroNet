@@ -79,7 +79,7 @@ a { color: black }
 /* Notification select */
 .notification .select {
 	display: block; padding: 10px; margin-right: -32px; text-decoration: none; border-left: 3px solid #EEE;
-	margin-top: 1px; transition: all 0.3s; color: #666
+	margin-top: 10px; transition: all 0.3s; color: #666
 }
 .notification .select:hover, .notification .select.active { background-color: #007AFF; border-left: 3px solid #5D68FF; color: white; transition: none }
 .notification .select:active, .notification .select:focus { background-color: #3396FF; color: white; transition: none; border-left-color: #3396FF }
