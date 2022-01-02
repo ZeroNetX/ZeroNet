@@ -18,7 +18,7 @@
 	"Use Tor bridges": "Tor bridge-ek használata",
 	"Use obfuscated bridge relays to avoid network level Tor block (even slower)": "Tor elrejtő bridge-ek használata a hálózat szintű Tor tiltás megkerüléséhez (még lassabb)",
 
-	"Discover new peers using these adresses": "Új kapcsolat felfedezése ezen címek használatával",
+	"Discover new peers using these addresses": "Új kapcsolat felfedezése ezen címek használatával",
 
 	"Trackers files": "Tracker file-ok",
 	"Load additional list of torrent trackers dynamically, from a file": "További trackerek felfedezése dinamikusan, ezen file használatával",

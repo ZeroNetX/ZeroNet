@@ -21,8 +21,8 @@ class TestDebug:
         (["/root/main.py:17"], ["/root/main.py line 17"]),
         (["{gevent}:13"], ["<gevent>/__init__.py line 13"]),  # modules
         (["{os}:13"], ["<os> line 13"]),  # python builtin modules
-        (["src/gevent/event.py:17"], ["<gevent>/event.py line 17"]),  # gevent-overriden __file__
-        (["@/src/Db/Db.py:17", "@/src/Db/DbQuery.py:1"], ["Db.py line 17", "DbQuery.py line 1"]),  # mutliple args
+        (["src/gevent/event.py:17"], ["<gevent>/event.py line 17"]),  # gevent-overridden __file__
+        (["@/src/Db/Db.py:17", "@/src/Db/DbQuery.py:1"], ["Db.py line 17", "DbQuery.py line 1"]),  # multiple args
         (["@/src/Db/Db.py:17", "@/src/Db/Db.py:1"], ["Db.py line 17", "1"]),  # same file
         (["{os}:1", "@/src/Db/Db.py:17"], ["<os> line 1", "Db.py line 17"]),  # builtins
         (["{gevent}:1"] + ["{os}:3"] * 4 + ["@/src/Db/Db.py:17"], ["<gevent>/__init__.py line 1", "...", "Db.py line 17"])

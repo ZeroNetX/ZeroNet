@@ -266,7 +266,7 @@ class ContentDbPlugin(object):
         self.log.debug("%s/%s peer number for %s site updated in %.3fs" % (num_updated, num_file, num_site, time.time() - s))
 
     def queryDeletableFiles(self):
-        # First return the files with atleast 10 seeder and not accessed in last week
+        # First return the files with at least 10 seeders and not accessed in last week
         query = """
             SELECT * FROM file_optional
             WHERE peer > 10 AND %s
@@ -285,7 +285,7 @@ class ContentDbPlugin(object):
 
         self.log.debug("queryDeletableFiles returning less-seeded files")
 
-        # Then return files less seeder but still not accessed in last week
+        # Then return files with less seeders but still not accessed in last week
         query = """
             SELECT * FROM file_optional
             WHERE peer <= 10 AND %s
@@ -302,7 +302,7 @@ class ContentDbPlugin(object):
                 break
             limit_start += 50
 
-        self.log.debug("queryDeletableFiles returning everyting")
+        self.log.debug("queryDeletableFiles returning everything")
 
         # At the end return all files
         query = """

@@ -29,7 +29,7 @@ thread_pool_fs_batch = ThreadPool.ThreadPool(1, name="FS batch")
 class SiteStorage(object):
     def __init__(self, site, allow_create=True):
         self.site = site
-        self.directory = "%s/%s" % (config.data_dir, self.site.address)  # Site data diretory
+        self.directory = "%s/%s" % (config.data_dir, self.site.address)  # Site data directory
         self.allowed_dir = os.path.abspath(self.directory)  # Only serve file within this dir
         self.log = site.log
         self.db = None  # Db class
@@ -94,7 +94,7 @@ class SiteStorage(object):
             try:
                 changed_tables = self.db.checkTables()
                 if changed_tables:
-                    self.rebuildDb(delete_db=False, reason="Changed tables")  # TODO: only update the changed table datas
+                    self.rebuildDb(delete_db=False, reason="Changed tables")  # TODO: only update the changed table data
             except sqlite3.OperationalError:
                 pass
 
@@ -102,7 +102,7 @@ class SiteStorage(object):
     @util.Noparallel()
     def getDb(self):
         if self.event_db_busy:  # Db not ready for queries
-            self.log.debug("Wating for db...")
+            self.log.debug("Waiting for db...")
             self.event_db_busy.get()  # Wait for event
         if not self.db:
             self.loadDb()
@@ -130,7 +130,7 @@ class SiteStorage(object):
             content_inner_path_dir = helper.getDirname(content_inner_path)  # Content.json dir relative to site
             for file_relative_path in list(content.get("files", {}).keys()) + list(content.get("files_optional", {}).keys()):
                 if not file_relative_path.endswith(".json") and not file_relative_path.endswith("json.gz"):
-                    continue  # We only interesed in json files
+                    continue  # We are only interested in json files
                 file_inner_path = content_inner_path_dir + file_relative_path  # File Relative to site dir
                 file_inner_path = file_inner_path.strip("/")  # Strip leading /
                 if self.isFile(file_inner_path):
@@ -297,7 +297,7 @@ class SiteStorage(object):
     def rename(self, inner_path_before, inner_path_after):
         for retry in range(3):
             rename_err = None
-            # To workaround "The process cannot access the file beacause it is being used by another process." error
+            # To workaround "The process cannot access the file because it is being used by another process." error
             try:
                 os.rename(self.getPath(inner_path_before), self.getPath(inner_path_after))
                 break
@@ -425,7 +425,7 @@ class SiteStorage(object):
         back = defaultdict(int)
         back["bad_files"] = bad_files
         i = 0
-        self.log.debug("Verifing files...")
+        self.log.debug("Verifying files...")
 
         if not self.site.content_manager.contents.get("content.json"):  # No content.json, download it first
             self.log.debug("VerifyFile content.json not exists")

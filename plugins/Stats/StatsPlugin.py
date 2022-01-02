@@ -398,7 +398,7 @@ class UiRequestPlugin(object):
             for part in self.renderMemory():
                 yield part
 
-        gc.collect()  # Implicit grabage collection
+        gc.collect()  # Implicit garbage collection
         yield "Done in %.1f" % (time.time() - s)
 
     @helper.encodeResponse
@@ -437,7 +437,7 @@ class UiRequestPlugin(object):
                 yield "- %s: %s<br>" % (attr, html.escape(str(getattr(obj, attr))))
             yield "<br>"
 
-        gc.collect()  # Implicit grabage collection
+        gc.collect()  # Implicit garbage collection
 
     @helper.encodeResponse
     def actionListobj(self):
@@ -505,7 +505,7 @@ class UiRequestPlugin(object):
         for obj, stat in sorted(list(ref_count.items()), key=lambda x: x[1][0], reverse=True)[0:30]:  # Sorted by count
             yield " - %.1fkb = %s x %s<br>" % (stat[1], stat[0], html.escape(str(obj)))
 
-        gc.collect()  # Implicit grabage collection
+        gc.collect()  # Implicit garbage collection
 
     @helper.encodeResponse
     def actionGcCollect(self):

@@ -22,7 +22,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder ".", "/vagrant",
       :nfs => !Vagrant::Util::Platform.windows?
 
-  #Virtal Box settings
+  #Virtual Box settings
   config.vm.provider "virtualbox" do |vb|
     # Don't boot with headless mode
     #vb.gui = true

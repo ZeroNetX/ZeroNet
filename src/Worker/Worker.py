@@ -129,7 +129,7 @@ class Worker(object):
         task["failed"].append(self.peer)
         self.peer.hash_failed += 1
         if self.peer.hash_failed >= max(len(self.manager.tasks), 3) or self.peer.connection_error > 10:
-            # Broken peer: More fails than tasks number but atleast 3
+            # Broken peer: More fails than tasks number but at least 3
             raise WorkerStop(
                 "Too many errors (hash failed: %s, connection error: %s)" %
                 (self.peer.hash_failed, self.peer.connection_error)

@@ -125,7 +125,7 @@ class TestTor:
 
         assert peer_file_server.findHashIds([1234]) == {}
 
-        # Add fake peer with requred hash
+        # Add fake peer with required hash
         fake_peer_1 = site.addPeer("bka4ht2bzxchy44r.onion", 1544)
         fake_peer_1.hashfield.append(1234)
         fake_peer_2 = site.addPeer("1.2.3.5", 1545)

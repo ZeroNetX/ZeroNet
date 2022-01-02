@@ -37,7 +37,7 @@ class SiteManager(object):
         address_found = []
         added = 0
         load_s = time.time()
-        # Load new adresses
+        # Load new addresses
         try:
             json_path = "%s/sites.json" % config.data_dir
             data = json.load(open(json_path))
@@ -68,14 +68,14 @@ class SiteManager(object):
 
             address_found.append(address)
 
-        # Remove deleted adresses
+        # Remove deleted addresses
         if cleanup:
             for address in list(self.sites.keys()):
                 if address not in address_found:
                     del(self.sites[address])
                     self.log.debug("Removed site: %s" % address)
 
-            # Remove orpan sites from contentdb
+            # Remove orphan sites from contentdb
             content_db = ContentDb.getContentDb()
             for row in content_db.execute("SELECT * FROM site").fetchall():
                 address = row["address"]
@@ -172,7 +172,7 @@ class SiteManager(object):
     def add(self, address, all_file=True, settings=None, **kwargs):
         from .Site import Site
         self.sites_changed = int(time.time())
-        # Try to find site with differect case
+        # Try to find site with different case
         for recover_address, recover_site in list(self.sites.items()):
             if recover_address.lower() == address.lower():
                 return recover_site

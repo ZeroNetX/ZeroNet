@@ -80,7 +80,7 @@ class LocalAnnouncer(BroadcastServer.BroadcastServer):
         back = []
         sites = list(self.server.sites.values())
 
-        # Split adresses to group of 100 to avoid UDP size limit
+        # Split addresses to group of 100 to avoid UDP size limit
         site_groups = [sites[i:i + 100] for i in range(0, len(sites), 100)]
         for site_group in site_groups:
             res = {}

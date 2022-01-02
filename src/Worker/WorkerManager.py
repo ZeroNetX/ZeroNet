@@ -52,7 +52,7 @@ class WorkerManager(object):
             if not self.tasks:
                 continue
 
-            tasks = self.tasks[:]  # Copy it so removing elements wont cause any problem
+            tasks = self.tasks[:]  # Copy it so removing elements won't cause any problem
             num_tasks_started = len([task for task in tasks if task["time_started"]])
 
             self.log.debug(

@@ -56,7 +56,7 @@ class UiRequest(object):
             self.server = server
             self.log = server.log
         self.get = get  # Get parameters
-        self.env = env  # Enviroment settings
+        self.env = env  # Environment settings
         # ['CONTENT_LENGTH', 'CONTENT_TYPE', 'GATEWAY_INTERFACE', 'HTTP_ACCEPT', 'HTTP_ACCEPT_ENCODING', 'HTTP_ACCEPT_LANGUAGE',
         #  'HTTP_COOKIE', 'HTTP_CACHE_CONTROL', 'HTTP_HOST', 'HTTP_HTTPS', 'HTTP_ORIGIN', 'HTTP_PROXY_CONNECTION', 'HTTP_REFERER',
         #  'HTTP_USER_AGENT', 'PATH_INFO', 'QUERY_STRING', 'REMOTE_ADDR', 'REMOTE_PORT', 'REQUEST_METHOD', 'SCRIPT_NAME',
@@ -127,8 +127,8 @@ class UiRequest(object):
         # Prepend .bit host for transparent proxy
         if self.isDomain(self.env.get("HTTP_HOST")):
             path = re.sub("^/", "/" + self.env.get("HTTP_HOST") + "/", path)
-        path = re.sub("^http://zero[/]+", "/", path)  # Remove begining http://zero/ for chrome extension
-        path = re.sub("^http://", "/", path)  # Remove begining http for chrome extension .bit access
+        path = re.sub("^http://zero[/]+", "/", path)  # Remove beginning http://zero/ for chrome extension
+        path = re.sub("^http://", "/", path)  # Remove beginning http for chrome extension .bit access
 
         # Sanitize request url
         path = path.replace("\\", "/")

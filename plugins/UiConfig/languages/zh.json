@@ -26,7 +26,7 @@
 	"Use Tor bridges": "使用Tor网桥",
 	"Use obfuscated bridge relays to avoid network level Tor block (even slower)": "使用混淆网桥中继,从而避免网络层Tor阻碍 (超级慢)",
 
-	"Discover new peers using these adresses": "使用这些地址发现新节点",
+	"Discover new peers using these addresses": "使用这些地址发现新节点",
 
 	"Trackers files": "Trackers文件",
 	"Load additional list of torrent trackers dynamically, from a file": "从一个文件中,动态加载额外的种子Trackers列表",

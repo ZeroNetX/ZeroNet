@@ -37,7 +37,7 @@ class UserManager(object):
                 added += 1
             user_found.append(master_address)
 
-        # Remove deleted adresses
+        # Remove deleted addresses
         for master_address in list(self.users.keys()):
             if master_address not in user_found:
                 del(self.users[master_address])

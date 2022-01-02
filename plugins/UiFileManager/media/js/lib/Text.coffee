@@ -90,7 +90,7 @@ class Text
 				next_find = s2[next_find_i]
 
 		if extra_parts[next_find_i]
-			extra_parts[next_find_i] = ""  # Extra chars on the end doesnt matter
+			extra_parts[next_find_i] = ""  # Extra chars at the end don't matter
 		extra_parts = (val for key, val of extra_parts)
 		if next_find_i >= s2.length
 			return extra_parts.length + extra_parts.join("").length

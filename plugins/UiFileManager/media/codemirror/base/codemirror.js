@@ -5295,7 +5295,7 @@
     var hist = doc.history, event, selAfter = doc.sel;
     var source = type == "undo" ? hist.done : hist.undone, dest = type == "undo" ? hist.undone : hist.done;
 
-    // Verify that there is a useable event (so that ctrl-z won't
+    // Verify that there is a usable event (so that ctrl-z won't
     // needlessly clear selection events)
     var i = 0;
     for (; i < source.length; i++) {

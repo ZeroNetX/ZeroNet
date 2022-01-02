@@ -18,7 +18,7 @@ class TestAnnounceShare:
         tracker_storage.onTrackerFound("zero://%s:15441" % file_server.ip)
         assert peer.request("getTrackers")["trackers"] == []
 
-        # It needs to have at least one successfull announce to be shared to other peers
+        # It needs to have at least one successful announce to be shared to other peers
         tracker_storage.onTrackerSuccess("zero://%s:15441" % file_server.ip, 1.0)
         assert peer.request("getTrackers")["trackers"] == ["zero://%s:15441" % file_server.ip]
 

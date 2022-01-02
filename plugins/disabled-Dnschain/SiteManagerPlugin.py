@@ -14,7 +14,7 @@ class SiteManagerPlugin(object):
 	dns_cache_path = "%s/dns_cache.json" % config.data_dir
 	dns_cache = None
 
-	# Checks if its a valid address
+	# Checks if it's a valid address
 	def isAddress(self, address):
 		if self.isDomain(address): 
 			return True
@@ -92,27 +92,27 @@ class SiteManagerPlugin(object):
 		domain = domain.lower()
 		if self.dns_cache == None:
 			self.loadDnsCache()
-		if domain.count(".") < 2: # Its a topleved request, prepend @. to it
+		if domain.count(".") < 2: # It's a top-level request, prepend @. to it
 			domain = "@."+domain
 
 		domain_details = self.dns_cache.get(domain)
-		if domain_details and time.time() < domain_details[1]: # Found in cache and its not expired
+		if domain_details and time.time() < domain_details[1]: # Found in cache and it's not expired
 			return domain_details[0]
 		else:
-			# Resovle dns using dnschain
+			# Resolve dns using dnschain
 			thread_dnschain_info = gevent.spawn(self.resolveDomainDnschainInfo, domain)
 			thread_dnschain_net = gevent.spawn(self.resolveDomainDnschainNet, domain)
 			gevent.joinall([thread_dnschain_net, thread_dnschain_info]) # Wait for finish
 
-			if thread_dnschain_info.value and thread_dnschain_net.value: # Booth successfull
+			if thread_dnschain_info.value and thread_dnschain_net.value: # Booth successful
 				if thread_dnschain_info.value == thread_dnschain_net.value: # Same returned value
 					return thread_dnschain_info.value 
 				else:
-					log.error("Dns %s missmatch: %s != %s" % (domain, thread_dnschain_info.value, thread_dnschain_net.value))
+					log.error("Dns %s mismatch: %s != %s" % (domain, thread_dnschain_info.value, thread_dnschain_net.value))
 
 			# Problem during resolve
 			if domain_details: # Resolve failed, but we have it in the cache
-				domain_details[1] = time.time()+60*60 # Dont try again for 1 hour
+				domain_details[1] = time.time()+60*60 # Don't try again for 1 hour
 				return domain_details[0]
 			else: # Not found in cache
 				self.dns_cache[domain] = [None, time.time()+60] # Don't check again for 1 min
@@ -136,7 +136,7 @@ class SiteManagerPlugin(object):
 	def get(self, address):
 		if self.sites == None: # Not loaded yet
 			self.load()
-		if self.isDomain(address): # Its looks like a domain
+		if self.isDomain(address): # It looks like a domain
 			address_resolved = self.resolveDomain(address)
 			if address_resolved: # Domain found
 				site = self.sites.get(address_resolved)

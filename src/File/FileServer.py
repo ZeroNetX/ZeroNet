@@ -55,7 +55,7 @@ class FileServer(ConnectionServer):
         self.log.debug("Supported IP types: %s" % self.supported_ip_types)
 
         if ip_type == "dual" and ip == "::":
-            # Also bind to ipv4 addres in dual mode
+            # Also bind to ipv4 address in dual mode
             try:
                 self.log.debug("Binding proxy to %s:%s" % ("::", self.port))
                 self.stream_server_proxy = StreamServer(
@@ -296,7 +296,7 @@ class FileServer(ConnectionServer):
                     site.retryBadFiles()
 
                 if time.time() - site.settings.get("modified", 0) < 60 * 60 * 24 * 7:
-                    # Keep active connections if site has been modified witin 7 days
+                    # Keep active connections if site has been modified within 7 days
                     connected_num = site.needConnections(check_site_on_reconnect=True)
 
                     if connected_num < config.connected_limit:  # This site has small amount of peers, protect them from closing

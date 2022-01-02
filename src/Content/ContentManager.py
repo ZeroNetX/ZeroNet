@@ -965,7 +965,7 @@ class ContentManager(object):
                 if "signs" in new_content:
                     del(new_content["signs"])  # The file signed without the signs
 
-                sign_content = json.dumps(new_content, sort_keys=True)  # Dump the json to string to remove whitepsace
+                sign_content = json.dumps(new_content, sort_keys=True)  # Dump the json to string to remove whitespace
 
                 # Fix float representation error on Android
                 modified = new_content["modified"]

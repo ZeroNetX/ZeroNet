@@ -89,7 +89,7 @@ class TestBigfile:
 
         site.storage.delete(inner_path)
 
-        # Writing to end shold not take much longer, than writing to start
+        # Writing to end should not take much longer, than writing to start
         assert time_write_end <= max(0.1, time_write_start * 1.1)
 
     def testRangedFileRequest(self, file_server, site, site_temp):

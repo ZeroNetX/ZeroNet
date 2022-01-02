@@ -103,7 +103,7 @@ class TorManager(object):
                     self.enabled = True
                     if self.connect():
                         if self.isSubprocessRunning():
-                            self.request("TAKEOWNERSHIP")  # Shut down Tor client when controll connection closed
+                            self.request("TAKEOWNERSHIP")  # Shut down Tor client when controller connection closed
                         break
                 # Terminate on exit
                 atexit.register(self.stopTor)

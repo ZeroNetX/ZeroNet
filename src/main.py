@@ -242,13 +242,13 @@ class Actions(object):
         SiteManager.site_manager.load()
 
         s = time.time()
-        logging.info("Verifing site: %s..." % address)
+        logging.info("Verifying site: %s..." % address)
         site = Site(address)
         bad_files = []
 
         for content_inner_path in site.content_manager.contents:
             s = time.time()
-            logging.info("Verifing %s signature..." % content_inner_path)
+            logging.info("Verifying %s signature..." % content_inner_path)
             err = None
             try:
                 file_correct = site.content_manager.verifyFile(
@@ -427,7 +427,7 @@ class Actions(object):
 
             # Started fileserver
             file_server.portCheck()
-            if peer_ip:  # Announce ip specificed
+            if peer_ip:  # Announce ip specified
                 site.addPeer(peer_ip, peer_port)
             else:  # Just ask the tracker
                 logging.info("Gathering peers from tracker")
@@ -563,7 +563,7 @@ class Actions(object):
 
         test_names = [funcToName(name) for name in dir(self) if name.startswith("test") and name != "test"]
         if not test_name:
-            # No test specificed, list tests
+            # No test specified, list tests
             print("\nNo test specified, possible tests:")
             for test_name in test_names:
                 func_name = "test" + test_name[0].upper() + test_name[1:]

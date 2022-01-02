@@ -144,7 +144,7 @@ class ContentFilterStorage(object):
 
         return details
 
-    # Search and remove or readd files of an user
+    # Search and remove or re-add files of a user
     def changeDbs(self, auth_address, action):
         self.log.debug("Mute action %s on user %s" % (action, auth_address))
         res = list(self.site_manager.list().values())[0].content_manager.contents.db.execute(

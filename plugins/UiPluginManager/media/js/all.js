@@ -1400,7 +1400,7 @@
                 }, "Update to rev" + plugin.site_info.rev);
               }
             } else {
-              tag_update = h("span.version-missing", "(unable to get latest vesion: update site missing)");
+              tag_update = h("span.version-missing", "(unable to get latest version: update site missing)");
             }
             tag_version = h("span.version", ["rev" + plugin.info.rev + " ", tag_update]);
             tag_source = h("div.source", [

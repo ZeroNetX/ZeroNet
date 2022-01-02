@@ -68,7 +68,7 @@ def merge(merged_path):
         return  # Assets not changed, nothing to do
 
     old_parts = {}
-    if os.path.isfile(merged_path):  # Find old parts to avoid unncessary recompile
+    if os.path.isfile(merged_path):  # Find old parts to avoid unnecessary recompile
         merged_old = open(merged_path, "rb").read()
         for match in re.findall(rb"(/\* ---- (.*?) ---- \*/(.*?)(?=/\* ----|$))", merged_old, re.DOTALL):
             old_parts[match[1].decode()] = match[2].strip(b"\n\r")

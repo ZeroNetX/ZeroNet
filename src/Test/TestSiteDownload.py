@@ -500,7 +500,7 @@ class TestSiteDownload:
         site.storage.writeJson("content.json", content_json)
         changed, deleted = site.content_manager.loadContent("content.json", force=True)
 
-        # Make sure we have 2 differents content.json
+        # Make sure we have 2 different content.json
         assert site_temp.storage.open("content.json").read() != site.storage.open("content.json").read()
 
         # Generate diff

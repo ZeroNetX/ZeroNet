@@ -7,7 +7,7 @@ from Plugin import PluginManager
 from Config import config
 from Debug import Debug
 
-# Keep archive open for faster reponse times for large sites
+# Keep archive open for faster response times for large sites
 archive_cache = {}
 
 
@@ -55,7 +55,7 @@ class UiRequestPlugin(object):
                 if not os.path.isfile(archive_path):
                     # Wait until file downloads
                     result = site.needFile(archive_inner_path, priority=10)
-                    # Send virutal file path download finished event to remove loading screen
+                    # Send virtual file path download finished event to remove loading screen
                     site.updateWebsocket(file_done=archive_inner_path)
                     if not result:
                         return self.error404(archive_inner_path)

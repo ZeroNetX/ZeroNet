@@ -18,7 +18,7 @@
 	"Use Tor bridges": "Usar pontes do Tor",
 	"Use obfuscated bridge relays to avoid network level Tor block (even slower)": "Usar relays de ponte ofuscados para evitar o bloqueio de Tor de nível de rede (ainda mais lento)",
 
-	"Discover new peers using these adresses": "Descobrir novos peers usando estes endereços",
+	"Discover new peers using these addresses": "Descobrir novos peers usando estes endereços",
 
 	"Trackers files": "Arquivos de trackers",
 	"Load additional list of torrent trackers dynamically, from a file": "Carregar lista adicional de trackers de torrent dinamicamente, à partir de um arquivo",

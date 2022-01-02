@@ -202,9 +202,9 @@ class UiWebsocketPlugin(object):
 class SiteStoragePlugin(object):
     def updateDbFile(self, inner_path, file=None, cur=None):
         if file is not False:  # File deletion always allowed
-            # Find for bitcoin addresses in file path
+            # Find bitcoin addresses in file path
             matches = re.findall("/(1[A-Za-z0-9]{26,35})/", inner_path)
-            # Check if any of the adresses are in the mute list
+            # Check if any of the addresses are in the mute list
             for auth_address in matches:
                 if filter_storage.isMuted(auth_address):
                     self.log.debug("Mute match: %s, ignoring %s" % (auth_address, inner_path))

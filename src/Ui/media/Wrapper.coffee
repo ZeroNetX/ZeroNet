@@ -471,7 +471,7 @@ class Wrapper
 		if @inner_loaded # Update site info
 			@reloadSiteInfo()
 
-		# If inner frame not loaded for 2 sec show peer informations on loading screen by loading site info
+		# If inner frame not loaded for 2 sec show peer information on loading screen by loading site info
 		setTimeout (=>
 			if not @site_info then @reloadSiteInfo()
 		), 2000

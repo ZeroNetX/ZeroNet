@@ -169,7 +169,7 @@ class Site(object):
         content_inner_dir = helper.getDirname(inner_path)
         if not found:
             self.log.debug("DownloadContent %s: Download failed, check_modifications: %s" % (inner_path, check_modifications))
-            if check_modifications:  # Download failed, but check modifications if its succed later
+            if check_modifications:  # Download failed, but check modifications if it's succeeded later
                 self.onFileDone.once(lambda file_name: self.checkModifications(0), "check_modifications")
             return False  # Could not download content.json
 
@@ -193,7 +193,7 @@ class Site(object):
             site_size_limit = self.getSizeLimit() * 1024 * 1024
             content_size = len(json.dumps(self.content_manager.contents[inner_path], indent=1)) + sum([file["size"] for file in list(self.content_manager.contents[inner_path].get("files", {}).values()) if file["size"] >= 0])  # Size of new content
             if site_size_limit < content_size:
-                # Not enought don't download anything
+                # Not enough don't download anything
                 self.log.debug("DownloadContent Size limit reached (site too big please increase limit): %.2f MB > %.2f MB" % (content_size / 1024 / 1024, site_size_limit / 1024 / 1024))
                 return False
 
@@ -236,7 +236,7 @@ class Site(object):
                         diff_success = False
 
                 if not diff_success:
-                    # Start download and dont wait for finish, return the event
+                    # Start download and don't wait for finish, return the event
                     res = self.needFile(file_inner_path, blocking=False, update=self.bad_files.get(file_inner_path), peer=peer)
                     if res is not True and res is not False:  # Need downloading and file is allowed
                         file_threads.append(res)  # Append evt
@@ -251,7 +251,7 @@ class Site(object):
                     continue
                 if not self.isDownloadable(file_inner_path):
                     continue
-                # Start download and dont wait for finish, return the event
+                # Start download and don't wait for finish, return the event
                 res = self.pooledNeedFile(
                     file_inner_path, blocking=False, update=self.bad_files.get(file_inner_path), peer=peer
                 )
@@ -344,7 +344,7 @@ class Site(object):
         if check_size:  # Check the size first
             valid = self.downloadContent("content.json", download_files=False)  # Just download content.json files
             if not valid:
-                return False  # Cant download content.jsons or size is not fits
+                return False  # Can't download content.jsons or size is not fits
 
         # Download everything
         valid = self.downloadContent("content.json", check_modifications=blind_includes)
@@ -1033,7 +1033,7 @@ class Site(object):
                     break
         if sent:
             my_hashfield_changed = self.content_manager.hashfield.time_changed
-            self.log.debug("Sent my hashfield (chaged %.3fs ago) to %s peers" % (time.time() - my_hashfield_changed, sent))
+            self.log.debug("Sent my hashfield (changed %.3fs ago) to %s peers" % (time.time() - my_hashfield_changed, sent))
         return sent
 
     # Update hashfield
@@ -1121,7 +1121,7 @@ class Site(object):
                 self.log.debug("Bad file solved: %s" % inner_path)
             del(self.bad_files[inner_path])
 
-        # Update content.json last downlad time
+        # Update content.json last download time
         if inner_path == "content.json":
             if not self.settings.get("downloaded"):
                 self.settings["downloaded"] = int(time.time())

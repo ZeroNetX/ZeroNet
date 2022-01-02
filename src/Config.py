@@ -61,7 +61,7 @@ class Config(object):
         elif this_file.endswith("/Contents/Resources/core/src/Config.py"):
             # Running as ZeroNet.app
             if this_file.startswith("/Application") or this_file.startswith("/private") or this_file.startswith(os.path.expanduser("~/Library")):
-                # Runnig from non-writeable directory, put data to Application Support
+                # Running from non-writeable directory, put data to Application Support
                 start_dir = os.path.expanduser("~/Library/Application Support/ZeroNet")
             else:
                 # Running from writeable directory put data next to .app
@@ -444,7 +444,7 @@ class Config(object):
 
     # Parse command line arguments
     def parseCommandline(self, argv, silent=False):
-        # Find out if action is specificed on start
+        # Find out if action is specified on start
         action = self.getAction(argv)
         if not action:
             argv.append("--end")

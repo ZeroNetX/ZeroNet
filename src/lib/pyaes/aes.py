@@ -519,7 +519,7 @@ class AESModeOfOperationOFB(AESStreamModeOfOperation):
         return _bytes_to_string(encrypted)
 
     def decrypt(self, ciphertext):
-        # AES-OFB is symetric
+        # AES-OFB is symmetric
         return self.encrypt(ciphertext)
 
 
@@ -530,9 +530,9 @@ class AESModeOfOperationCTR(AESStreamModeOfOperation):
        o A stream-cipher, so input does not need to be padded to blocks,
          allowing arbitrary length data.
        o The counter must be the same size as the key size (ie. len(key))
-       o Each block independant of the other, so a corrupt byte will not
+       o Each block independent of the other, so a corrupt byte will not
          damage future blocks.
-       o Each block has a uniue counter value associated with it, which
+       o Each block has a unique counter value associated with it, which
          contributes to the encrypted value, so no data patterns are
          leaked.
        o Also known as: Counter Mode (CM), Integer Counter Mode (ICM) and
@@ -575,7 +575,7 @@ class AESModeOfOperationCTR(AESStreamModeOfOperation):
         return _bytes_to_string(encrypted)
 
     def decrypt(self, crypttext):
-        # AES-CTR is symetric
+        # AES-CTR is symmetric
         return self.encrypt(crypttext)
 
 

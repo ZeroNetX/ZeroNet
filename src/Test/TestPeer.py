@@ -61,7 +61,7 @@ class TestPeer:
         assert site.content_manager.hashfield
         assert len(site.content_manager.hashfield) > 0
 
-        # Check exsist hash
+        # Check existing hash
         assert site.content_manager.hashfield.getHashId(sample_hash) in site.content_manager.hashfield
 
         # Add new hash
@@ -137,7 +137,7 @@ class TestPeer:
 
         assert peer_file_server.findHashIds([1234]) == {}
 
-        # Add fake peer with requred hash
+        # Add fake peer with required hash
         fake_peer_1 = site.addPeer(file_server.ip_external, 1544)
         fake_peer_1.hashfield.append(1234)
         fake_peer_2 = site.addPeer("1.2.3.5", 1545)

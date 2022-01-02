@@ -5299,7 +5299,7 @@
     var hist = doc.history, event, selAfter = doc.sel;
     var source = type == "undo" ? hist.done : hist.undone, dest = type == "undo" ? hist.undone : hist.done;
 
-    // Verify that there is a useable event (so that ctrl-z won't
+    // Verify that there is a usable event (so that ctrl-z won't
     // needlessly clear selection events)
     var i = 0;
     for (; i < source.length; i++) {
@@ -11370,7 +11370,7 @@
           });
         } else {
           if (startIndent.length > nextIndent.length) return;
-          // This doesn't run if the next line immediatley indents, as it is
+          // This doesn't run if the next line immediately indents, as it is
           // not clear of the users intention (new indented item or same level)
           if ((startIndent.length < nextIndent.length) && (lookAhead === 1)) return;
           skipCount += 1;
@@ -14492,7 +14492,7 @@ var jsonlint=function(){var a=!0,b=!1,c={},d=function(){var a={trace:function(){
 // highlighted only if the selected text is a word. showToken, when enabled,
 // will cause the current token to be highlighted when nothing is selected.
 // delay is used to specify how much time to wait, in milliseconds, before
-// highlighting the matches. If annotateScrollbar is enabled, the occurences
+// highlighting the matches. If annotateScrollbar is enabled, the occurrences
 // will be highlighted on the scrollbar via the matchesonscrollbar addon.
 
 (function(mod) {

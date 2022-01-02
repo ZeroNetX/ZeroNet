@@ -84,7 +84,7 @@ class DbCursor:
 
     def execute(self, query, params=None):
         query = query.strip()
-        while self.db.progress_sleeping or self.db.commiting:
+        while self.db.progress_sleeping or self.db.committing:
             time.sleep(0.1)
 
         self.db.last_query_time = time.time()
@@ -133,7 +133,7 @@ class DbCursor:
             return res
 
     def executemany(self, query, params):
-        while self.db.progress_sleeping or self.db.commiting:
+        while self.db.progress_sleeping or self.db.committing:
             time.sleep(0.1)
 
         self.db.last_query_time = time.time()

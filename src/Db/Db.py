@@ -78,7 +78,7 @@ class Db(object):
         self.id = next_db_id
         next_db_id += 1
         self.progress_sleeping = False
-        self.commiting = False
+        self.committing = False
         self.log = logging.getLogger("Db#%s:%s" % (self.id, schema["db_name"]))
         self.table_names = None
         self.collect_stats = False
@@ -159,15 +159,15 @@ class Db(object):
             self.log.debug("Commit ignored: No connection")
             return False
 
-        if self.commiting:
-            self.log.debug("Commit ignored: Already commiting")
+        if self.committing:
+            self.log.debug("Commit ignored: Already committing")
             return False
 
         try:
             s = time.time()
-            self.commiting = True
+            self.committing = True
             self.conn.commit()
-            self.log.debug("Commited in %.3fs (reason: %s)" % (time.time() - s, reason))
+            self.log.debug("Committed in %.3fs (reason: %s)" % (time.time() - s, reason))
             return True
         except Exception as err:
             if "SQL statements in progress" in str(err):
@@ -176,7 +176,7 @@ class Db(object):
                 self.log.error("Commit error: %s (reason: %s)" % (Debug.formatException(err), reason))
             return False
         finally:
-            self.commiting = False
+            self.committing = False
 
     def insertOrUpdate(self, *args, **kwargs):
         if not self.conn:
@@ -383,7 +383,7 @@ class Db(object):
             self.log.debug("Json file %s load error: %s" % (file_path, err))
             data = {}
 
-        # No cursor specificed
+        # No cursor specified
         if not cur:
             cur = self.getSharedCursor()
             cur.logging = False
@@ -432,7 +432,7 @@ class Db(object):
             # Insert data to tables
             for table_settings in dbmap.get("to_table", []):
                 if isinstance(table_settings, dict):  # Custom settings
-                    table_name = table_settings["table"]  # Table name to insert datas
+                    table_name = table_settings["table"]  # Table name to insert data
                     node = table_settings.get("node", table_name)  # Node keyname in data json file
                     key_col = table_settings.get("key_col")  # Map dict key as this col
                     val_col = table_settings.get("val_col")  # Map dict value as this col

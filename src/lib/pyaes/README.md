@@ -183,12 +183,12 @@ iv = "InitializationVe"
 
 ciphertext = ''
 
-# We can encrypt one line at a time, regardles of length
+# We can encrypt one line at a time, regardless of length
 encrypter = pyaes.Encrypter(pyaes.AESModeOfOperationCBC(key, iv))
 for line in file('/etc/passwd'):
     ciphertext += encrypter.feed(line)
 
-# Make a final call to flush any remaining bytes and add paddin
+# Make a final call to flush any remaining bytes and add padding
 ciphertext += encrypter.feed()
 
 # We can decrypt the cipher text in chunks (here we split it in half)

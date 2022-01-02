@@ -27,7 +27,7 @@ class Connection(object):
         self.cert_pin = None
         if "#" in ip:
             ip, self.cert_pin = ip.split("#")
-        self.target_onion = target_onion  # Requested onion adress
+        self.target_onion = target_onion  # Requested onion address
         self.id = server.last_connection_id
         server.last_connection_id += 1
         self.protocol = "?"
@@ -456,7 +456,7 @@ class Connection(object):
                 if config.debug_socket:
                     self.log("Handshake response: %s, ping: %s" % (message, ping))
                 self.last_ping_delay = ping
-                # Server switched to crypt, lets do it also if not crypted already
+                # Server switched to crypt, let's do it also if not crypted already
                 if message.get("crypt") and not self.sock_wrapped:
                     self.crypt = message["crypt"]
                     server = (self.type == "in")

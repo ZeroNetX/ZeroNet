@@ -81,7 +81,7 @@ class UiWebsocketPlugin(object):
                     if not isinstance(row["date_added"], (int, float, complex)):
                         self.log.debug("Invalid date_added from site %s: %r" % (address, row["date_added"]))
                         continue
-                    if row["date_added"] > 1000000000000:  # Formatted as millseconds
+                    if row["date_added"] > 1000000000000:  # Formatted as milliseconds
                         row["date_added"] = row["date_added"] / 1000
                     if "date_added" not in row or row["date_added"] > time.time() + 120:
                         self.log.debug("Newsfeed item from the future from from site %s" % address)

@@ -1427,7 +1427,7 @@
         title: "Trackers",
         key: "trackers",
         type: "textarea",
-        description: "Discover new peers using these adresses"
+        description: "Discover new peers using these addresses"
       });
       section.items.push({
         title: "Trackers files",

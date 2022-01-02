@@ -60,7 +60,7 @@ class TestDb:
             {"test_id": [1, 2, 3], "title": ["Test #2", "Test #3", "Test #4"]}
         ).fetchone()["num"] == 2
 
-        # Large ammount of IN values
+        # Large amount of IN values
         assert db.execute(
             "SELECT COUNT(*) AS num FROM test WHERE ?",
             {"not__test_id": list(range(2, 3000))}

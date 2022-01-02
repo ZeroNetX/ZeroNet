@@ -119,7 +119,7 @@ def info():
     else:
         memory_info = process.get_memory_info
     while 1:
-        print(total_num, "req", (total_bytes / 1024), "kbytes", "transfered in", time.time() - s, end=' ')
+        print(total_num, "req", (total_bytes / 1024), "kbytes", "transferred in", time.time() - s, end=' ')
         print("using", clipher, "Mem:", memory_info()[0] / float(2 ** 20))
         time.sleep(1)
 
@@ -132,31 +132,31 @@ for test in range(1):
     gevent.joinall(clients)
 
 
-print(total_num, "req", (total_bytes / 1024), "kbytes", "transfered in", time.time() - s)
+print(total_num, "req", (total_bytes / 1024), "kbytes", "transferred in", time.time() - s)
 
 # Separate client/server process:
 # 10*10*100:
-# Raw:      10000 req 1000009 kbytes transfered in 5.39999985695
-# RSA 2048: 10000 req 1000009 kbytes transfered in 27.7890000343 using ('ECDHE-RSA-AES256-SHA', 'TLSv1/SSLv3', 256)
-# ECC:      10000 req 1000009 kbytes transfered in 26.1959998608 using ('ECDHE-ECDSA-AES256-SHA', 'TLSv1/SSLv3', 256)
-# ECC:      10000 req 1000009 kbytes transfered in 28.2410001755 using ('ECDHE-ECDSA-AES256-GCM-SHA384', 'TLSv1/SSLv3', 256) Mem: 13.3828125
+# Raw:      10000 req 1000009 kbytes transferred in 5.39999985695
+# RSA 2048: 10000 req 1000009 kbytes transferred in 27.7890000343 using ('ECDHE-RSA-AES256-SHA', 'TLSv1/SSLv3', 256)
+# ECC:      10000 req 1000009 kbytes transferred in 26.1959998608 using ('ECDHE-ECDSA-AES256-SHA', 'TLSv1/SSLv3', 256)
+# ECC:      10000 req 1000009 kbytes transferred in 28.2410001755 using ('ECDHE-ECDSA-AES256-GCM-SHA384', 'TLSv1/SSLv3', 256) Mem: 13.3828125
 #
 # 10*100*10:
-# Raw:      10000 req 1000009 kbytes transfered in 7.02700018883 Mem: 14.328125
-# RSA 2048: 10000 req 1000009 kbytes transfered in 44.8860001564 using ('ECDHE-RSA-AES256-GCM-SHA384', 'TLSv1/SSLv3', 256) Mem: 20.078125
-# ECC:      10000 req 1000009 kbytes transfered in 37.9430000782 using ('ECDHE-ECDSA-AES256-GCM-SHA384', 'TLSv1/SSLv3', 256) Mem: 20.0234375
+# Raw:      10000 req 1000009 kbytes transferred in 7.02700018883 Mem: 14.328125
+# RSA 2048: 10000 req 1000009 kbytes transferred in 44.8860001564 using ('ECDHE-RSA-AES256-GCM-SHA384', 'TLSv1/SSLv3', 256) Mem: 20.078125
+# ECC:      10000 req 1000009 kbytes transferred in 37.9430000782 using ('ECDHE-ECDSA-AES256-GCM-SHA384', 'TLSv1/SSLv3', 256) Mem: 20.0234375
 #
 # 1*100*100:
-# Raw:      10000 req 1000009 kbytes transfered in 4.64400005341 Mem: 14.06640625
-# RSA:      10000 req 1000009 kbytes transfered in 24.2300000191 using ('ECDHE-RSA-AES256-GCM-SHA384', 'TLSv1/SSLv3', 256) Mem: 19.7734375
-# ECC:      10000 req 1000009 kbytes transfered in 22.8849999905 using ('ECDHE-ECDSA-AES256-GCM-SHA384', 'TLSv1/SSLv3', 256) Mem: 17.8125
-# AES128:   10000 req 1000009 kbytes transfered in 21.2839999199 using ('AES128-GCM-SHA256', 'TLSv1/SSLv3', 128) Mem: 14.1328125
-# ECC+128:  10000 req 1000009 kbytes transfered in 20.496999979  using ('ECDHE-ECDSA-AES128-GCM-SHA256', 'TLSv1/SSLv3', 128) Mem: 14.40234375
+# Raw:      10000 req 1000009 kbytes transferred in 4.64400005341 Mem: 14.06640625
+# RSA:      10000 req 1000009 kbytes transferred in 24.2300000191 using ('ECDHE-RSA-AES256-GCM-SHA384', 'TLSv1/SSLv3', 256) Mem: 19.7734375
+# ECC:      10000 req 1000009 kbytes transferred in 22.8849999905 using ('ECDHE-ECDSA-AES256-GCM-SHA384', 'TLSv1/SSLv3', 256) Mem: 17.8125
+# AES128:   10000 req 1000009 kbytes transferred in 21.2839999199 using ('AES128-GCM-SHA256', 'TLSv1/SSLv3', 128) Mem: 14.1328125
+# ECC+128:  10000 req 1000009 kbytes transferred in 20.496999979  using ('ECDHE-ECDSA-AES128-GCM-SHA256', 'TLSv1/SSLv3', 128) Mem: 14.40234375
 #
 #
 # Single process:
 # 1*100*100
-# RSA:      10000 req 1000009 kbytes transfered in 41.7899999619 using ('ECDHE-RSA-AES128-GCM-SHA256', 'TLSv1/SSLv3', 128) Mem: 26.91015625
+# RSA:      10000 req 1000009 kbytes transferred in 41.7899999619 using ('ECDHE-RSA-AES128-GCM-SHA256', 'TLSv1/SSLv3', 128) Mem: 26.91015625
 #
 # 10*10*100
-# RSA:      10000 req 1000009 kbytes transfered in 40.1640000343 using ('ECDHE-RSA-AES128-GCM-SHA256', 'TLSv1/SSLv3', 128) Mem: 14.94921875
+# RSA:      10000 req 1000009 kbytes transferred in 40.1640000343 using ('ECDHE-RSA-AES128-GCM-SHA256', 'TLSv1/SSLv3', 128) Mem: 14.94921875

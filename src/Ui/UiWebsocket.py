@@ -1043,7 +1043,7 @@ class UiWebsocket(object):
     def actionSiteListModifiedFiles(self, to, content_inner_path="content.json"):
         content = self.site.content_manager.contents.get(content_inner_path)
         if not content:
-            return {"error": "content file not avaliable"}
+            return {"error": "content file not available"}
 
         min_mtime = content.get("modified", 0)
         site_path = self.site.storage.directory

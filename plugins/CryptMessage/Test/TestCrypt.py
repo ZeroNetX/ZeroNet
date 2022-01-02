@@ -27,7 +27,7 @@ class TestCrypt:
         pub = ui_websocket.testAction("UserPublickey", 0)
         assert len(pub) == 44  # Compressed, b64 encoded publickey
 
-        # Different pubkey for specificed index
+        # Different pubkey for specified index
         assert ui_websocket.testAction("UserPublickey", 1) != ui_websocket.testAction("UserPublickey", 0)
 
         # Same publickey for same index
