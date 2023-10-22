@@ -897,6 +897,8 @@ class Site(object):
                 continue  # No connection
             if peer.ip.endswith(".onion") and not self.connection_server.tor_manager.enabled:
                 continue  # Onion not supported
+            if peer.ip.endswith(".i2p") and not self.connection_server.i2p_manager.enabled:
+                continue  # I2P not supported
             if peer.key in ignore:
                 continue  # The requester has this peer
             if time.time() - peer.connection.last_recv_time > 60 * 60 * 2:  # Last message more than 2 hours ago
@@ -937,6 +939,8 @@ class Site(object):
         need_more = need_num - len(found)
         if not self.connection_server.tor_manager.enabled:
             peers = [peer for peer in self.peers.values() if not peer.ip.endswith(".onion")]
+        elif not self.connection_server.i2p_manager.enabled:
+            peers = [peer for peer in self.peers.values() if not peer.ip.endswith(".i2p")]
         else:
             peers = list(self.peers.values())
 
@@ -965,6 +969,21 @@ class Site(object):
                     # Check if the connection is made with the onion address created for the site
                     valid_target_onions = (tor_manager.getOnion(self.address), tor_manager.getOnion("global"))
                     if connection.target_onion not in valid_target_onions:
+                        continue
+                if not peer.connection:
+                    peer.connect(connection)
+                back.append(peer)
+
+        i2p_manager = self.connection_server.i2p_manager
+        for connection in self.connection_server.connections:
+            if not connection.connected and time.time() - connection.start_time > 20:  # Still not connected after 20s
+                continue
+            peer = self.peers.get("%s:%s" % (connection.ip, connection.port))
+            if peer:
+                if connection.ip.endswith(".i2p") and connection.target_dest and i2p_manager.start_dests:
+                    # Check if the connection is made with the i2p address created for the site
+                    valid_target_i2p = (i2p_manager.getDest(self.address), i2p_manager.getDest("global").base64())
+                    if connection.target_dest not in valid_target_onions:
                         continue
                 if not peer.connection:
                     peer.connect(connection)

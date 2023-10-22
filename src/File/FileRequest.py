@@ -321,6 +321,13 @@ class FileRequest(object):
             if site.addPeer(*address, source="pex"):
                 added += 1
 
+        # Add sent i2p peers to site
+        for packed_address in params.get("peers_i2p", []):
+            address = helper.unpackI2PAddress(packed_address)
+            got_peer_keys.append("%s:%s" % address)
+            if site.addPeer(*address):
+                added += 1
+
         # Send back peers that is not in the sent list and connectable (not port 0)
         packed_peers = helper.packPeers(site.getConnectablePeers(params["need"], ignore=got_peer_keys, allow_private=False))
 
@@ -335,7 +342,8 @@ class FileRequest(object):
         back = {
             "peers": packed_peers["ipv4"],
             "peers_ipv6": packed_peers["ipv6"],
-            "peers_onion": packed_peers["onion"]
+            "peers_onion": packed_peers["onion"],
+            "peers_i2p": packed_peers["i2p"]
         }
 
         self.response(back)
@@ -410,7 +418,7 @@ class FileRequest(object):
                 "Found: %s for %s hashids in %.3fs" %
                 ({key: len(val) for key, val in back.items()}, len(params["hash_ids"]), time.time() - s)
             )
-        self.response({"peers": back["ipv4"], "peers_onion": back["onion"], "peers_ipv6": back["ipv6"], "my": my_hashes})
+        self.response({"peers": back["ipv4"], "peers_onion": back["onion"], "peers_i2p": back["i2p"], "peers_ipv6": back["ipv6"], "my": my_hashes})
 
     def actionSetHashfield(self, params):
         site = self.sites.get(params["site"])

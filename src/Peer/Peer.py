@@ -126,6 +126,8 @@ class Peer(object):
     def packMyAddress(self):
         if self.ip.endswith(".onion"):
             return helper.packOnionAddress(self.ip, self.port)
+        if self.ip.endswith(".i2p"):
+            return helper.packI2PAddress(self.ip, self.port)
         else:
             return helper.packAddress(self.ip, self.port)
 
@@ -273,6 +275,8 @@ class Peer(object):
         request = {"site": site.address, "peers": packed_peers["ipv4"], "need": need_num}
         if packed_peers["onion"]:
             request["peers_onion"] = packed_peers["onion"]
+        if packed_peers["i2p"]:
+            request["peers_i2p"] = packed_peers["i2p"]
         if packed_peers["ipv6"]:
             request["peers_ipv6"] = packed_peers["ipv6"]
         res = self.request("pex", request)
@@ -297,6 +301,12 @@ class Peer(object):
         for peer in res.get("peers_onion", []):
             address = helper.unpackOnionAddress(peer)
             if site.addPeer(*address, source="pex"):
+                added += 1
+
+        # Add I2P
+        for peer in res.get("peers_i2p", []):
+            address = helper.unpackI2PAddress(peer)
+            if site.addPeer(*address):
                 added += 1
 
         if added:
@@ -331,7 +341,7 @@ class Peer(object):
 
         back = collections.defaultdict(list)
 
-        for ip_type in ["ipv4", "ipv6", "onion"]:
+        for ip_type in ["ipv4", "ipv6", "onion", "i2p"]:
             if ip_type == "ipv4":
                 key = "peers"
             else:
@@ -339,6 +349,8 @@ class Peer(object):
             for hash, peers in list(res.get(key, {}).items())[0:30]:
                 if ip_type == "onion":
                     unpacker_func = helper.unpackOnionAddress
+                elif ip_type == "i2p":
+                    unpacker_func = helper.unpackI2PAddress
                 else:
                     unpacker_func = helper.unpackAddress
 

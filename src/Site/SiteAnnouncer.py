@@ -39,6 +39,9 @@ class SiteAnnouncer(object):
         if not self.site.connection_server.tor_manager.enabled:
             trackers = [tracker for tracker in trackers if ".onion" not in tracker]
 
+        if not self.site.connection_server.i2p_manager.enabled:
+            trackers = [tracker for tracker in trackers if ".i2p" not in tracker]
+
         trackers = [tracker for tracker in trackers if self.getAddressParts(tracker)]  # Remove trackers with unknown address
 
         if "ipv6" not in self.site.connection_server.supported_ip_types:
@@ -67,6 +70,8 @@ class SiteAnnouncer(object):
                     back.append(ip_type)
         if self.site.connection_server.tor_manager.start_onions:
             back.append("onion")
+        if self.site.connection_server.i2p_manager.start_dests:
+            back.append("i2p")
         return back
 
     @util.Noparallel(blocking=False)

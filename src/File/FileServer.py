@@ -252,6 +252,7 @@ class FileServer(ConnectionServer):
 
             if not self.port_opened["ipv4"]:
                 self.tor_manager.startOnions()
+                self.i2p_manager.startDests()
 
         if not sites_checking:
             check_pool = gevent.pool.Pool(5)
