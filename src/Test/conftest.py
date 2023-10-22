@@ -74,6 +74,7 @@ config.debug = True
 config.debug_socket = True  # Use test data for unittests
 config.verbose = True  # Use test data for unittests
 config.tor = "disable"  # Don't start Tor client
+config.i2p = "disable"  # Don't start I2P client
 config.trackers = []
 config.data_dir = TEST_DATA_PATH  # Use test data for unittests
 if "ZERONET_LOG_DIR" in os.environ:
@@ -126,6 +127,7 @@ from Crypt import CryptConnection
 from Crypt import CryptBitcoin
 from Ui import UiWebsocket
 from Tor import TorManager
+from I2P import I2PManager
 from Content import ContentDb
 from util import RateLimit
 from Db import Db
@@ -495,3 +497,13 @@ def disableLog():
     yield None  # Wait until all test done
     logging.getLogger('').setLevel(logging.getLevelName(logging.CRITICAL))
 
+@pytest.fixture(scope="session")
+def i2p_manager():
+    try:
+        i2p_manager = I2PManager()
+        i2p_manager.enabled = True
+        assert i2p_manager.connect(), "No connection"
+        i2p_manager.startDests()
+    except Exception as err:
+        raise pytest.skip("Test requires I2P with SAM port: %s, %s" % (config.i2p_sam, err))
+    return i2p_manager

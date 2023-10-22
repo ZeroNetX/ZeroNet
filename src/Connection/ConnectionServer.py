@@ -17,6 +17,7 @@ from Config import config
 from Crypt import CryptConnection
 from Crypt import CryptHash
 from Tor import TorManager
+from I2P import I2PManager
 from Site import SiteManager
 
 
@@ -38,6 +39,10 @@ class ConnectionServer(object):
         self.peer_blacklist = SiteManager.peer_blacklist
 
         self.tor_manager = TorManager(self.ip, self.port)
+        if config.i2p != "disabled":
+            self.i2p_manager = I2PManager(self.handleIncomingConnection)
+        else:
+            self.i2p_manager = None
         self.connections = []  # Connections
         self.whitelist = config.ip_local  # No flood protection on this ips
         self.ip_incoming = {}  # Incoming connections from ip in the last minute to avoid connection flood
@@ -171,10 +176,13 @@ class ConnectionServer(object):
 
     def getConnection(self, ip=None, port=None, peer_id=None, create=True, site=None, is_tracker_connection=False):
         ip_type = helper.getIpType(ip)
-        has_per_site_onion = (ip.endswith(".onion") or self.port_opened.get(ip_type, None) == False) and self.tor_manager.start_onions and site
-        if has_per_site_onion:  # Site-unique connection for Tor
+        has_per_site_onion = (((ip.endswith(".onion") or self.port_opened.get("onion", None) == False) and self.tor_manager.start_onions) or \
+                              ((ip.endswith(".i2p") or self.port_opened.get("i2p", None) == False) and self.i2p_manager.start_dests)) and site
+        if has_per_site_onion:  # Site-unique connection for Tor or I2P
             if ip.endswith(".onion"):
                 site_onion = self.tor_manager.getOnion(site.address)
+            elif ip.endswith(".i2p"):
+                site_onion = self.i2p_manager.getDest(site.address)
             else:
                 site_onion = self.tor_manager.getOnion("global")
             key = ip + site_onion
@@ -196,7 +204,8 @@ class ConnectionServer(object):
                 if connection.ip == ip:
                     if peer_id and connection.handshake.get("peer_id") != peer_id:  # Does not match
                         continue
-                    if ip.endswith(".onion") and self.tor_manager.start_onions and ip.replace(".onion", "") != connection.target_onion:
+                    if (ip.endswith(".onion") and self.tor_manager.start_onions and ip.replace(".onion", "") != connection.target_onion) or \
+                        (ip.endswith(".i2p") and self.i2p_manager.start_dests and ip.replace(".i2p", "") != connection.target_dest):
                         # For different site
                         continue
                     if not connection.connected and create:

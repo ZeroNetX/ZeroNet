@@ -47,7 +47,7 @@ class UiWebsocket(object):
             self.site.page_requested = True  # Dont add connection notification anymore
             import main
             file_server = main.file_server
-            if not file_server.port_opened or file_server.tor_manager.start_onions is None:
+            if not file_server.port_opened or (file_server.tor_manager.start_onions or file_server.i2p_manager.start_dests) is None:
                 self.site.page_requested = False  # Not ready yet, check next time
             else:
                 try:
@@ -302,6 +302,8 @@ class UiWebsocket(object):
             "tor_status": file_server.tor_manager.status,
             "tor_has_meek_bridges": file_server.tor_manager.has_meek_bridges,
             "tor_use_bridges": config.tor_use_bridges,
+            "i2p_enabled": file_server.i2p_manager.enabled,
+            "i2p_status": file_server.i2p_manager.status,
             "ui_ip": config.ui_ip,
             "ui_port": config.ui_port,
             "version": config.version,
@@ -537,7 +539,7 @@ class UiWebsocket(object):
         else:
             if len(site.peers) == 0:
                 import main
-                if any(main.file_server.port_opened.values()) or main.file_server.tor_manager.start_onions:
+                if any(main.file_server.port_opened.values()) or main.file_server.tor_manager.start_onions or main.file_server.i2p_manager.start_onions:
                     if notification:
                         self.cmd("notification", ["info", _["No peers found, but your content is ready to access."]])
                     if callback:

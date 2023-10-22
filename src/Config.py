@@ -88,6 +88,8 @@ class Config(object):
             "http://t.publictracker.xyz:6969/announce",
             "https://tracker.lilithraws.cf:443/announce",
             "https://tracker.babico.name.tr:443/announce",
+            "http://opentracker.dg2.i2p/announce",
+            "http://opentracker.skank.i2p/announce"
         ]
         # Platform specific
         if sys.platform.startswith("win"):
@@ -311,6 +313,9 @@ class Config(object):
         self.parser.add_argument('--tor_use_bridges', help='Use obfuscated bridge relays to avoid Tor block', action='store_true')
         self.parser.add_argument('--tor_hs_limit', help='Maximum number of hidden services in Tor always mode', metavar='limit', type=int, default=10)
         self.parser.add_argument('--tor_hs_port', help='Hidden service port in Tor always mode', metavar='limit', type=int, default=15441)
+        
+        self.parser.add_argument('--i2p', help='enable: Use only for I2P peers, always: Use I2P for every connection', choices=["disable", "enable", "always"], default='enable')
+        self.parser.add_argument('--i2p_sam', help='I2P SAM API address', metavar='ip:port', default='127.0.0.1:7656')
 
         self.parser.add_argument('--version', action='version', version='ZeroNet %s r%s' % (self.version, self.rev))
         self.parser.add_argument('--end', help='Stop multi value argument parsing', action='store_true')

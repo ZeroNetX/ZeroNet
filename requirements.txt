@@ -11,3 +11,4 @@ websocket_client
 gevent-ws
 coincurve
 maxminddb
+i2p.socket
