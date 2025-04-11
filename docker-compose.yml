@@ -1,0 +1,22 @@
+services:
+  zeronet:
+    build: .
+    user: zeronet:zeronet
+    volumes:
+      - ./data:/app/data
+      - ./log:/app/log
+    ports:
+      - "${UI_PORT:-43110}:${UI_PORT:-43110}"
+      - "${FILESERVER_PORT:-26117}:${FILESERVER_PORT:-26117}"
+    environment:
+      - ENABLE_TOR=true
+      - UI_IP=0.0.0.0
+      - UI_PORT=43110
+      - FILESERVER_PORT=26117
+      - ADDITIONAL_ARGS=
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:${UI_PORT:-43110}/ZeroNet-Internal/Stats", "||", "exit", "1"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 30s
