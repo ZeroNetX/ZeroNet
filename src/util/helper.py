@@ -209,7 +209,8 @@ def httpRequest(url, as_file=False):
 
         conn = http.client.HTTPSConnection(host)
         sock = socket.create_connection((conn.host, conn.port), conn.timeout, conn.source_address)
-        conn.sock = ssl.wrap_socket(sock, conn.key_file, conn.cert_file)
+        context = ssl.create_default_context()
+        conn.sock = context.wrap_socket(sock, server_hostname=conn.host)
         conn.request("GET", request)
         response = conn.getresponse()
         if response.status in [301, 302, 303, 307, 308]:
