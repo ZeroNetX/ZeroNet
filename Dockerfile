@@ -65,7 +65,7 @@ USER zeronet
 ENTRYPOINT ["/sbin/tini", "--"]
 
 # The command the container runs with
-CMD ["sh", "-c", "echo \"Python: $(python -V), Tor: $(tor --version | head -n1)\" && (! ${ENABLE_TOR} || tor&) && python zeronet.py --ui_ip ${UI_IP} --ui_port ${UI_PORT} --fileserver_port ${FILESERVER_PORT} ${ADDITIONAL_ARGS}"]
+CMD ["sh", "-c", "(! ${ENABLE_TOR} || tor&) && python zeronet.py --ui_ip ${UI_IP} --ui_port ${UI_PORT} --fileserver_port ${FILESERVER_PORT} ${ADDITIONAL_ARGS}"]
 
 # Expose ports - using the environment variables
 EXPOSE ${UI_PORT} ${FILESERVER_PORT}
