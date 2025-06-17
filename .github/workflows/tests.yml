@@ -26,7 +26,7 @@ jobs:
           sudo apt-get install glibc-tools
           python3 -m pip install setuptools
           python3 -m pip install --upgrade pip wheel
-          python3 -m pip install --upgrade codecov coveralls flake8 mock pytest==4.6.3 pytest-cov selenium
+          python3 -m pip install --upgrade codecov coveralls flake8 mock pytest pytest-cov selenium
 
       - name: Install
         run: |
