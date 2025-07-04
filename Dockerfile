@@ -1,33 +1,71 @@
-FROM alpine:3.15 
+FROM python:3.13-alpine AS builder
 
-#Base settings
-ENV HOME /root
+# Set working directory
+WORKDIR /app
 
-COPY requirements.txt /root/requirements.txt
+# Copy requirements
+COPY requirements.txt .
 
-#Install ZeroNet
-RUN apk --update --no-cache --no-progress add python3 python3-dev py3-pip gcc g++ autoconf automake libtool libffi-dev musl-dev make tor openssl \
- && pip3 install -r /root/requirements.txt \
- && apk del python3-dev gcc g++ autoconf automake libtool libffi-dev musl-dev make \
- && echo "ControlPort 9051" >> /etc/tor/torrc \
- && echo "CookieAuthentication 1" >> /etc/tor/torrc
- 
-RUN python3 -V \
- && python3 -m pip list \
- && tor --version \
- && openssl version
+# Install build dependencies
+RUN apk --no-cache add \
+    build-base \
+    git \
+    autoconf automake libtool \
+    libffi-dev openssl-dev \
+    musl-dev
 
-#Add Zeronet source
-COPY . /root
-VOLUME /root/data
+# Install Python deps
+RUN python -m venv /app/venv && \
+    . /app/venv/bin/activate && \
+    pip install --upgrade pip && \
+    pip install -r requirements.txt
 
-#Control if Tor proxy is started
-ENV ENABLE_TOR true
+# -----------------------------
+# Runtime image
+FROM python:3.13-alpine
 
-WORKDIR /root
+# Create app directory
+WORKDIR /app
 
-#Set upstart command
-CMD (! ${ENABLE_TOR} || tor&) && python3 zeronet.py --ui_ip 0.0.0.0 --fileserver_port 26117
+# Add non-root user
+RUN addgroup -S zeronet && adduser -S -G zeronet zeronet
 
-#Expose ports
-EXPOSE 43110 26117
+# Install runtime dependencies
+RUN apk --no-cache add \
+    tor tini openssl wget
+
+# Configure tor
+RUN echo "ControlPort 9051" >> /etc/tor/torrc && \
+    echo "CookieAuthentication 1" >> /etc/tor/torrc
+
+# Copy from builder
+COPY --from=builder /app/venv /app/venv
+
+# Copy application code
+COPY --chown=zeronet:zeronet . /app
+
+# Prepare directories
+RUN mkdir -p /app/data /app/log && \
+    chown -R zeronet:zeronet /app/data /app/log && \
+    chmod 750 /app/data /app/log
+
+# Set environment
+ENV PATH="/app/venv/bin:$PATH" \
+    VIRTUAL_ENV="/app/venv" \
+    ENABLE_TOR=true \
+    UI_IP=0.0.0.0 \
+    UI_PORT=43110 \
+    FILESERVER_PORT=26117 \
+    ADDITIONAL_ARGS=""
+
+# Switch to non-root user
+USER zeronet
+
+# Use Tini as init to handle signals gracefully
+ENTRYPOINT ["/sbin/tini", "--"]
+
+# The command the container runs with
+CMD ["sh", "-c", "(! ${ENABLE_TOR} || tor&) && python zeronet.py --ui_ip ${UI_IP} --ui_port ${UI_PORT} --fileserver_port ${FILESERVER_PORT} ${ADDITIONAL_ARGS}"]
+
+# Expose ports - using the environment variables
+EXPOSE ${UI_PORT} ${FILESERVER_PORT}
