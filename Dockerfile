@@ -1,4 +1,4 @@
-FROM alpine:3.15 
+FROM alpine:3.18
 
 #Base settings
 ENV HOME /root
@@ -6,9 +6,9 @@ ENV HOME /root
 COPY requirements.txt /root/requirements.txt
 
 #Install ZeroNet
-RUN apk --update --no-cache --no-progress add python3 python3-dev py3-pip gcc g++ autoconf automake libtool libffi-dev musl-dev make tor openssl \
+RUN apk --update --no-cache --no-progress add python3 python3-dev py3-pip gcc g++ autoconf automake libtool libffi-dev musl-dev make tor openssl git \
  && pip3 install -r /root/requirements.txt \
- && apk del python3-dev gcc g++ autoconf automake libtool libffi-dev musl-dev make \
+ && apk del python3-dev gcc g++ autoconf automake libtool libffi-dev musl-dev make git \
  && echo "ControlPort 9051" >> /etc/tor/torrc \
  && echo "CookieAuthentication 1" >> /etc/tor/torrc
  
