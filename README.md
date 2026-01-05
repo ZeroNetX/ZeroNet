@@ -79,6 +79,8 @@ Decentralized websites using Bitcoin crypto and the BitTorrent network - https:/
  - `wget https://github.com/ZeroNetX/ZeroNet/releases/latest/download/ZeroNet-linux.zip`
  - `unzip ZeroNet-linux.zip`
  - `cd ZeroNet-linux`
+ - `chmod +x ./ZeroNet.sh`
+ - Fix paths: `sed -i "s|runtime/|/usr/|g" ./ZeroNet.sh && sed -i "s|../runtime/bin/openssl|openssl|" ./core/src/Crypt/CryptConnection.py`
  - Start with: `./ZeroNet.sh`
  - Open the ZeroHello landing page in your browser by navigating to: http://127.0.0.1:43110/
  
